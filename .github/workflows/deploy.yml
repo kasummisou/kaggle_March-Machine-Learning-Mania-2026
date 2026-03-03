@@ -28,3 +28,7 @@ jobs:
 
       - name: Push Notebook
         run: kaggle kernels push -p notebooks
+
+      - name: Debug folder
+        run: |
+          ls -R
