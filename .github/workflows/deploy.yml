@@ -2,8 +2,7 @@ name: Deploy to Kaggle
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   deploy:
@@ -12,12 +11,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install Kaggle API
-        run: pip install kaggle
-
-      - name: Push notebook
-        env:
-          KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
-          KAGGLE_KEY: ${{ secrets.KAGGLE_KEY }}
+      - name: Install Kaggle CLI
         run: |
+          pip install kaggle
+
+      - name: Push notebook to Kaggle
+        env:
+          KAGGLE_API_TOKEN: ${{ secrets.KAGGLE_API_TOKEN }}
+        run: |
+          echo $KAGGLE_API_TOKEN  # for debug (*** masked)
           kaggle kernels push -p notebooks/
