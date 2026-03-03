@@ -11,13 +11,22 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install Kaggle CLI
+      - name: Install Latest Kaggle
         run: |
-          pip install kaggle
+          python -m pip install --upgrade pip
+          pip install --upgrade kaggle
 
-      - name: Push notebook to Kaggle
+      - name: Show Kaggle Version
+        run: kaggle --version
+
+      - name: Test Kaggle Auth
         env:
           KAGGLE_API_TOKEN: ${{ secrets.KAGGLE_API_TOKEN }}
         run: |
-          echo $KAGGLE_API_TOKEN  # for debug (*** masked)
+          kaggle competitions list
+
+      - name: Push notebook
+        env:
+          KAGGLE_API_TOKEN: ${{ secrets.KAGGLE_API_TOKEN }}
+        run: |
           kaggle kernels push -p notebooks/
