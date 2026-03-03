@@ -2,7 +2,8 @@ name: Deploy to Kaggle
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
   deploy:
@@ -11,22 +12,19 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install Latest Kaggle
+      - name: Set up Kaggle credentials
+        run: |
+          mkdir -p ~/.kaggle
+          echo "{\"username\":\"${{ secrets.KAGGLE_USERNAME }}\",\"key\":\"${{ secrets.KAGGLE_API_KEY }}\"}" > ~/.kaggle/kaggle.json
+          chmod 600 ~/.kaggle/kaggle.json
+
+      - name: Install Kaggle CLI
         run: |
           python -m pip install --upgrade pip
-          pip install --upgrade kaggle
+          pip install kaggle
 
-      - name: Show Kaggle Version
-        run: kaggle --version
+      - name: Confirm Kaggle User
+        run: kaggle config view
 
-      - name: Test Kaggle Auth
-        env:
-          KAGGLE_API_TOKEN: ${{ secrets.KAGGLE_API_TOKEN }}
-        run: |
-          kaggle competitions list
-
-      - name: Push notebook
-        env:
-          KAGGLE_API_TOKEN: ${{ secrets.KAGGLE_API_TOKEN }}
-        run: |
-          kaggle kernels push -p notebooks/
+      - name: Push Notebook
+        run: kaggle kernels push -p notebooks
