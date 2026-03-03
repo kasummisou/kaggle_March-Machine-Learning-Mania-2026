@@ -15,12 +15,9 @@ jobs:
       - name: Install Kaggle API
         run: pip install kaggle
 
-      - name: Set Kaggle credentials
-        run: |
-          mkdir -p ~/.kaggle
-          echo "${{ secrets.KAGGLE_JSON }}" > ~/.kaggle/kaggle.json
-          chmod 600 ~/.kaggle/kaggle.json
-
       - name: Push notebook
+        env:
+          KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
+          KAGGLE_KEY: ${{ secrets.KAGGLE_KEY }}
         run: |
           kaggle kernels push -p notebooks/
