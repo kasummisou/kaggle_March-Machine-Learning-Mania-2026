@@ -25,10 +25,11 @@ jobs:
 
       - name: Confirm Kaggle User
         run: kaggle config view
+      
+      - name: Debug folder
+        run: |
+          ls -R
 
       - name: Push Notebook
         run: kaggle kernels push -p notebooks
 
-      - name: Debug folder
-        run: |
-          ls -R
