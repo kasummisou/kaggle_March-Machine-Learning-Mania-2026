@@ -15,7 +15,12 @@ jobs:
       - name: Set up Kaggle credentials
         run: |
           mkdir -p ~/.kaggle
-          echo "{\"username\":\"${{ secrets.KAGGLE_USERNAME }}\",\"key\":\"${{ secrets.KAGGLE_API_KEY }}\"}" > ~/.kaggle/kaggle.json
+          cat > ~/.kaggle/kaggle.json << EOF
+          {
+            "username": "${{ secrets.KAGGLE_USERNAME }}",
+            "key": "${{ secrets.KAGGLE_API_KEY }}"
+          }
+          EOF
           chmod 600 ~/.kaggle/kaggle.json
 
       - name: Install Kaggle CLI
