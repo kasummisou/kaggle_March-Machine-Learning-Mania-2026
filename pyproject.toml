@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "kaggle-basket"
+version = "0.1.0"
+description = ""
+authors = ["dainoboru"]
+readme = "README.md"
+packages = [{include = "kaggle_basket"}]
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pandas = "==2.2.0"
+numpy = "==1.26.4"
+jupyter = "==1.0.0"
+jupyterlab = "==4.0.9"
+kaggle = "==2.0.0"
+scikit-learn = "==1.4.2"
+matplotlib = "==3.8.3"
+seaborn = "==0.13.1"
+python-dotenv = "==1.0.0"
+lightgbm = "^4.6.0"
+xgboost = "^3.2.0"
+catboost = "^1.2.10"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
